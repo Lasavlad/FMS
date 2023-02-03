@@ -40,6 +40,9 @@ class Supplier(models.Model):
     address = models.CharField(max_length=200)
     description = models.TextField()
 
+    def __str__(self):
+        return self.name
+
 class Fleet(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(max_length=2000)
@@ -88,6 +91,10 @@ class Trip(models.Model):
         ('A', 'Arrived'),
         ('O', 'Ongoing'),
     )
+    ROUTE_CHOICES = (
+        ('K-L', 'kano - Lagos'),
+        ('L-K', 'Lagos - Kano'),
+    )
     truck = models.ForeignKey(
         Truck,
         models.CASCADE
@@ -96,8 +103,7 @@ class Trip(models.Model):
         Supplier,
         models.CASCADE
     )
-    origin = models.CharField(max_length=64)
-    destination = models.CharField(max_length=64)
+    route = models.CharField(max_length=3, choices=ROUTE_CHOICES)
     date_of_trip = models.DateField()
     time_of_departure = models.DateTimeField()
     time_of_arrival = models.TimeField(blank=True, null=True)

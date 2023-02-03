@@ -2,14 +2,12 @@ from django import forms
 from .models import Trip
 
 class CreateTrip(forms.ModelForm):
-    custom_supplier = forms.CharField(max_length=100)
     class Meta:
         model = Trip
         fields = [
             'truck', 
-            'custom_supplier',
-            'origin',  
-            'destination', 
+            'supplier',
+            'route',
             'date_of_trip', 
             'time_of_departure',
             'diesel_required',
