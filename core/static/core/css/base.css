@@ -1,0 +1,42 @@
+nav {
+    background-color: aqua;
+  
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 1rem;
+    align-items: center;
+}
+
+.navLogo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+}
+
+.navFunctionality {
+    display: flex;
+    align-items: center;
+}
+
+.navFun_item {
+    padding: 0 1.5rem;
+}
+
+.navLogo img {
+    width: 40px;
+    height: 40px;
+    padding: 0 1rem;
+}
+.icon {
+    width: 20px;
+}
+
+.user-profile {
+    display: flex;
+}
+
+.user-profile-photo {
+    padding-right: 1.5rem;
+}
+
