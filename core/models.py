@@ -84,6 +84,10 @@ class Maintainance(models.Model):
     
         
 class Trip(models.Model):
+    STATUS_CHOICE = (
+        ('A', 'Arrived'),
+        ('O', 'Ongoing'),
+    )
     truck = models.ForeignKey(
         Truck,
         models.CASCADE
@@ -100,6 +104,8 @@ class Trip(models.Model):
     diesel_required = models.IntegerField()
     nature_of_load = models.CharField(max_length=64)
     load_weight = models.IntegerField()
+    status = models.CharField(max_length=1, choices=STATUS_CHOICE, default='O')
+    
 
     def __str__(self):
         return f"{self.origin} - {self.destination}"
