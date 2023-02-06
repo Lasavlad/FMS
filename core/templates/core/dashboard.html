@@ -3,4 +3,12 @@
 {% block style %}{% endblock %}
 
 {% block body %}
+<ul>
+    {% for trip in active_trips %}
+        <li>{{ trip.route }}</li>
+        <li>{{ trip.time_of_departure }}</li>
+    {% endfor %}
+
+</ul>
+
 {% endblock %}

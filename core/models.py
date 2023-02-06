@@ -24,9 +24,10 @@ class Vehicle(models.Model):
     model = models.CharField(max_length=64)
     date_of_production = models.DateField()
     vin_number = models.IntegerField()
+    unique_identifier = models.CharField(max_length=10)
     
     def __str__(self):
-        return self.make
+        return self.unique_identifier
 
     class Meta:
         abstract = True
