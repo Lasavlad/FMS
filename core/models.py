@@ -56,19 +56,26 @@ class Driver(Staff):
 
 
 class Truck(Vehicle):
+    STATUS_CHOICE = (
+        ('A', 'Active'),
+        ('I', 'Idle'),
+        ('M', 'Maintainance'),
+    )
     fleet = models.ForeignKey(
         Fleet, 
-        models.CASCADE
+        on_delete = models.CASCADE
     )
     assigned_driver = models.OneToOneField(
         Driver,
-        models.CASCADE
+        on_delete = models.CASCADE
     )
     load_capacity = models.IntegerField()
     axle_configuration = models.IntegerField()
     length = models.IntegerField()
     width = models.IntegerField()
     height = models.IntegerField()
+    status = models.CharField(max_length=1, choices=STATUS_CHOICE, default='I')
+    
 
 class Maintainance(models.Model):
     maintaince_code = models.IntegerField()
@@ -95,13 +102,14 @@ class Trip(models.Model):
         ('K-L', 'kano - Lagos'),
         ('L-K', 'Lagos - Kano'),
     )
-    truck = models.ForeignKey(
+    truck = models.OneToOneField(
         Truck,
-        models.CASCADE
+        on_delete = models.CASCADE,
+        related_name='truck_trip',
     )
     supplier = models.ForeignKey(
         Supplier,
-        models.CASCADE
+        on_delete = models.CASCADE
     )
     route = models.CharField(max_length=3, choices=ROUTE_CHOICES)
     date_of_trip = models.DateField()
@@ -114,7 +122,7 @@ class Trip(models.Model):
     
 
     def __str__(self):
-        return f"{self.origin} - {self.destination}"
+        return self.route
 
 
 class TripCost(models.Model):

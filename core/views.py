@@ -8,8 +8,12 @@ def index(request):
 
 
 def dashboard(request):
+    active_trips = Trip.objects.filter(status='O')
     
-    return render(request, 'core/dashboard.html')
+    context = {
+        'active_trips':active_trips
+    }
+    return render(request, 'core/dashboard.html',context)
 
 def create_trip(request):
     if request.method == 'POST':
