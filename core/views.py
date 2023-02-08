@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import *
-from .forms import CreateTrip, UpdateTrip
+from .forms import CreateTrip, UpdateTrip, Completed_trip_form
+import datetime
 
 
 def index(request):
@@ -9,17 +10,19 @@ def index(request):
 
 def dashboard(request):
     active_trips = Trip.objects.filter(status='O')
-    completed_trips = Trip.objects.filter(status='A')
+    #completed_trips = CompletedTrips.objects.all()
     
     context = {
         'active_trips':active_trips,
-        'completed_trips':completed_trips
+        #'completed_trips':completed_trips
     }
     return render(request, 'core/dashboard.html',context)
+
 
 def update_trip(request, id):
     #truck = Truck.objects.filter(status='A')
     trip = Trip.objects.get(id=id)
+    
     status_form = UpdateTrip(request.POST or None, instance=trip)
 
     if request.method == 'POST':
@@ -32,10 +35,26 @@ def update_trip(request, id):
                 truck = Truck.objects.get(unique_identifier=truck_id)
                 truck.status = 'I'
 
-            update_status = status_form.save(commit=False)
-            update_status.save()
-            truck.save()
-            print(data)
+
+                #UPDATING COMPLETE FORM
+                completed_trip = CompletedTrips(
+                    truck_C = trip.truck.unique_identifier,
+                    supplier_C = trip.supplier.name,
+                    route_C = trip.route,
+                    date_of_trip_C = trip.date_of_trip,
+                    time_of_departure_C = trip.time_of_departure,
+                    diesel_required_C = trip.diesel_required,
+                    nature_of_load_C = trip.nature_of_load,
+                    load_weight_C = trip.load_weight,
+                    time_of_arrival_C = datetime.datetime.now(),
+                    status_C = 'A'
+                )
+                completed_trip.save()
+            status_form.save()
+            if data['status'] == 'A':
+            
+                truck.save()
+                Trip.objects.get(id=id).delete()
             return redirect('core:dashboard')
     
     
@@ -70,7 +89,7 @@ def create_trip(request):
             form.save()
             return redirect('core:dashboard')
     else:
-        form = CreateTrip()
+        form = CreateTrip(initial={'status':'O'})
         form.fields['status'].initial = 'Ongoing'
     context = {
         'form':form

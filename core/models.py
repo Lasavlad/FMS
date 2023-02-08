@@ -118,9 +118,8 @@ class Trip(models.Model):
         blank=True
     )
     route = models.CharField(max_length=3, choices=ROUTE_CHOICES)
-    date_of_trip = models.DateField(blank=True, null=True)
-    time_of_departure = models.DateTimeField(blank=True, null=True)
-    time_of_arrival = models.TimeField(blank=True, null=True)
+    date_of_trip = models.DateField(null=True)
+    time_of_departure = models.DateTimeField(null=True)
     diesel_required = models.IntegerField(blank=True, null=True)
     nature_of_load = models.CharField(max_length=64)
     load_weight = models.IntegerField(blank=True, null=True)
@@ -130,9 +129,28 @@ class Trip(models.Model):
     def __str__(self):
         return self.route
 
-class CompletedTrips(Trip):
+class CompletedTrips(models.Model):
+    STATUS_CHOICE = (
+        ('A', 'Arrived'),
+        ('O', 'Ongoing'),
+    )
+    ROUTE_CHOICES = (
+        ('K-L', 'kano - Lagos'),
+        ('L-K', 'Lagos - Kano'),
+    )
+    truck_C = models.CharField(max_length=30)
+    supplier_C = models.CharField(max_length=30)
+    route_C = models.CharField(max_length=3, choices=ROUTE_CHOICES)
+    date_of_trip_C = models.DateField(null=True)
+    time_of_departure_C= models.DateTimeField(null=True)
+    diesel_required_C = models.IntegerField(blank=True, null=True)
+    nature_of_load_C = models.CharField(max_length=64)
+    load_weight_C = models.IntegerField(blank=True, null=True)
+    status_C = models.CharField(max_length=1, choices=STATUS_CHOICE, default='O')
+    time_of_arrival_C = models.DateTimeField(auto_now_add=True)
+
     def __str__(self):
-        return self.route
+        return self.route_C
 
 
 
