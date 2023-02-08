@@ -107,23 +107,33 @@ class Trip(models.Model):
         Truck,
         on_delete = models.CASCADE,
         related_name='truck_trip',
+        null=True,
+        blank=True
+    
     )
     supplier = models.ForeignKey(
         Supplier,
-        on_delete = models.CASCADE
+        on_delete = models.CASCADE,
+        null=True,
+        blank=True
     )
     route = models.CharField(max_length=3, choices=ROUTE_CHOICES)
-    date_of_trip = models.DateField()
-    time_of_departure = models.DateTimeField()
+    date_of_trip = models.DateField(blank=True, null=True)
+    time_of_departure = models.DateTimeField(blank=True, null=True)
     time_of_arrival = models.TimeField(blank=True, null=True)
-    diesel_required = models.IntegerField()
+    diesel_required = models.IntegerField(blank=True, null=True)
     nature_of_load = models.CharField(max_length=64)
-    load_weight = models.IntegerField()
+    load_weight = models.IntegerField(blank=True, null=True)
     status = models.CharField(max_length=1, choices=STATUS_CHOICE, default='O')
     
 
     def __str__(self):
         return self.route
+
+class CompletedTrips(Trip):
+    def __str__(self):
+        return self.route
+
 
 
 class TripCost(models.Model):

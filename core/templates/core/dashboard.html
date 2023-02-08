@@ -3,12 +3,20 @@
 {% block style %}{% endblock %}
 
 {% block body %}
+<h1>Active Trips</h1>
 <ul>
     {% for trip in active_trips %}
         <li>{{ trip.route }}</li>
-        <li>{{ trip.time_of_departure }}</li>
+        <a href="{% url 'core:update-trip' trip.id %}">Mark as Completed</a>
     {% endfor %}
 
+</ul>
+<h1>Completed Trips</h1>
+<ul>
+    {% for trip in completed_trips %}
+        <li>{{ trip.route }}</li>
+       
+    {% endfor %}
 </ul>
 
 {% endblock %}

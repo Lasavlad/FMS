@@ -1,4 +1,5 @@
 from django import forms
+
 from .models import Trip
 
 class CreateTrip(forms.ModelForm):
@@ -13,5 +14,16 @@ class CreateTrip(forms.ModelForm):
             'diesel_required',
             'nature_of_load',
             'load_weight',
+            'status'
+        ]
+
+class UpdateTrip(forms.ModelForm):
+    class Meta:
+        model = Trip
+        fields = [
+           
+            'time_of_arrival',
+            'diesel_required',
+           
             'status'
         ]
