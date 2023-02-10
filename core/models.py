@@ -155,20 +155,17 @@ class CompletedTrips(models.Model):
 
 
 class TripCost(models.Model):
-    truck = models.ForeignKey(
-        Truck,
-        models.CASCADE
-    )
     trip = models.ForeignKey(
         Trip,
-        models.CASCADE
+        on_delete=models.CASCADE,
+        related_name='trip_cost'
     )
     cost_of_diesel = models.IntegerField()
     revenue_settled = models.IntegerField()
     driver_upkeep = models.IntegerField()
     title = models.CharField(max_length=64)
-    date = models.DateField()
-    description = models.TextField()
+    date = models.DateField(blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
     cost = models.IntegerField(default=100)
-    receipt = models.FileField()
+    receipt = models.FileField(blank=True, null=True)
     

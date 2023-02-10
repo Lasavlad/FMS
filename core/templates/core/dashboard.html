@@ -7,18 +7,18 @@
 <ul>
     {% for trip in active_trips %}
         <li>{{ trip.route }}</li>
-        <a href="{% url 'core:update-trip' trip.id %}">Mark as Completed</a>
+        <a href="{% url 'core:update-trip' trip.id %}">Trip Details</a>
     {% endfor %}
 
 </ul>
 <h1>Completed Trips</h1>
-<!--
+
 <ul>
     {% for trip in completed_trips %}
-        <li>{{ trip.route }}</li>
+        <li>{{ trip.route_C }}</li>
        
     {% endfor %}
 </ul>
--->
+
 
 {% endblock %}

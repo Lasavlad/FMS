@@ -6,4 +6,26 @@
     {{ status_form.as_p }}
     <button type="submit">Confirm</button>
 </form>
+<div>
+    {% if trip_cost_details %}
+        {% for trip_cost in trip_cost_details %}
+            {{ trip_cost.trip }}
+            {{ trip_cost.cost_of_diesel }}
+            {{ trip_cost.revenue_settled }}
+            {{ trip_cost.driver_upkeep }}
+            {{ trip_cost.title }}
+            {{ trip_cost.date }}
+            {{ trip_cost.description }}
+            {{ trip_cost.cost }}
+            
+            <div>
+                <a href="{% url 'core:update-trip-cost' trip_cost.id %}?next={% url 'core:update-trip'  trip_id %}">Update trip</a>
+            </div>
+        {% endfor %}
+       
+    {% else %}
+        <a href="{% url 'core:create-trip-cost' %}">Create Trip Cost</a>
+    {% endif %}
+</div>
+
 {% endblock %}

@@ -1,0 +1,10 @@
+{% extends 'core/base.html' %}
+
+{% block body %}
+<form action="" method="POST">
+    {% csrf_token %}
+    {{ trip_cost_form }}
+    <input type="hidden" name="next" value="{{ request.GET.next }}">
+    <button type="submit">Confirm</button>
+</form>
+{% endblock %}

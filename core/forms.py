@@ -1,6 +1,6 @@
 from django import forms
 
-from .models import Trip, CompletedTrips
+from .models import Trip, CompletedTrips, TripCost
 
 class CreateTrip(forms.ModelForm):
     class Meta:
@@ -32,16 +32,28 @@ class Completed_trip_form(forms.ModelForm):
                 'status_C'
             ]
 
-    def clean(self):
-        clean_data = self.cleaned_data
-
 
 class UpdateTrip(forms.ModelForm):
     class Meta:
         model = Trip
         fields = [
-           
             'diesel_required',
-           
             'status'
+        ]
+
+
+
+class TripCostForm(forms.ModelForm):
+    class Meta:
+        model = TripCost
+        fields = [
+            'trip', 
+            'cost_of_diesel', 
+            'revenue_settled', 
+            'driver_upkeep', 
+            'title', 
+            'date', 
+            'description', 
+            'cost', 
+            'receipt' 
         ]
