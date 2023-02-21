@@ -42,7 +42,36 @@
             </div>
         </nav>
     </div>
-    {% block body %}
-    {% endblock %}
+    <div class="container">
+        <div class="admin_view">
+            <div class="admin_nav_container">
+                <div class="admin_nav" >
+                    <a href="{% url 'core:dashboard' %}" class="admin_nav_item">
+                        Dashboard
+                    </a>
+                    <div class="horizontal_line"></div>
+                    <a href="" class="admin_nav_item">
+                        Financials
+                    </a>
+                    <div class="horizontal_line"></div>
+                    <a href="{% url 'core:truck-info' %}" class="admin_nav_item">
+                        Vechicle
+                    </a>
+                    <div class="horizontal_line"></div>
+                
+                    <a href="" class="admin_nav_item">
+                        Tracking
+                    </a>
+                    <div class="horizontal_line"></div>
+            
+                </div>
+            </div>
+            <div class="content_main">
+                {% block body %}
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+    
 </body>
 </html>

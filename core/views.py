@@ -8,7 +8,7 @@ import datetime
 def index(request):
     return render(request, 'core/index.html')
 
-
+#dashboard 
 def dashboard(request):
     active_trips = Trip.objects.filter(status='O')
     completed_trips = CompletedTrips.objects.all()
@@ -125,6 +125,7 @@ def create_trip_cost(request):
 
 
 def update_trip_cost(request, id):
+
     trip_cost_details = TripCost.objects.get(id=id)
     trip_id = trip_cost_details.trip.id
     
@@ -142,3 +143,18 @@ def update_trip_cost(request, id):
         'trip_id':trip_id
     }
     return render(request, 'core/update_trip_cost.html', context)
+
+#truck
+def trucks_information_page(request):
+    trucks = Truck.objects.all()
+    context = {
+        'trucks':trucks,
+    }
+    return render(request, 'core/truck_info/trucks.html', context)
+
+def truck_detail_page(request, id):
+    truck = Truck.objects.get(id=id)
+    context = {
+        'truck':truck
+    }
+    return render(request, 'core/truck_info/truck_detail_view.html', context)

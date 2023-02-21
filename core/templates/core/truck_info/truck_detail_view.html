@@ -1,0 +1,9 @@
+{% extends 'core/base.html' %}
+
+{% block body %}
+
+{{ truck.unique_identifier }}
+{{ truck.fleet }}
+{{ truck.assigned_driver.first_name }}
+
+{% endblock %}

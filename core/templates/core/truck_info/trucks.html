@@ -1,0 +1,14 @@
+{% extends 'core/base.html' %}
+
+{% block body %}
+<ul>
+    {% if trucks %}
+        {% for truck in trucks %}
+        <li>{{ truck }} <span><a href="{% url 'core:truck-detail' truck.id %}">more info</a></span></li>
+        
+        {% endfor %}
+    {% else %}
+        <li>no trucks </li>
+    {% endif %}
+</ul>
+{% endblock %}
